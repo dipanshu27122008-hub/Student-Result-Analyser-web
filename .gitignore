@@ -1,0 +1,36 @@
+# Target build directory
+target/
+*.war
+*.jar
+*.class
+
+# Downloaded tools & distributions
+apache-tomcat-*/
+apache-maven-*/
+*.zip
+*.tar
+*.gz
+
+# Logs and temporary files
+*.log
+cookies.txt
+*.tmp
+*.bak
+
+# IDE and Editor configurations
+.settings/
+.project
+.classpath
+.metadata/
+.idea/
+*.iml
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# OS specific files
+Thumbs.db
+Desktop.ini
+.DS_Store
