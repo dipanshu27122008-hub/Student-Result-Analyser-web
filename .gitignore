@@ -4,6 +4,11 @@ target/
 *.jar
 *.class
 
+# Embedded database runtime data
+database_data/
+*.mv.db
+*.trace.db
+
 # Downloaded tools & distributions
 apache-tomcat-*/
 apache-maven-*/

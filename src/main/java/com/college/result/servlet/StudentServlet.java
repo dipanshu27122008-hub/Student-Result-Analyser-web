@@ -34,11 +34,17 @@ public class StudentServlet extends HttpServlet {
         List<StudentResult> studentResults = analysisService.searchAndFilter(query, filter);
         CollegeSettings settings = settingsDAO.getSettings();
 
+        String success = req.getParameter("success");
+        String error = req.getParameter("error");
+
         req.setAttribute("studentsList", studentResults);
         req.setAttribute("currentQuery", query != null ? query : "");
         req.setAttribute("currentFilter", filter);
         req.setAttribute("totalFound", studentResults.size());
         req.setAttribute("collegeSettings", settings);
+        req.setAttribute("successMessage", success);
+        req.setAttribute("errorMessage", error);
+        req.setAttribute("dbStatus", com.college.result.util.DBConnectionUtil.getDatabaseStatus());
 
         req.getRequestDispatcher("/students.jsp").forward(req, resp);
     }

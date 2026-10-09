@@ -63,6 +63,10 @@ public class DashboardServlet extends HttpServlet {
         req.setAttribute("dsaPassPct", dsaSa != null ? dsaSa.getPassPercentage() : 0.0);
         req.setAttribute("osPassPct", osSa != null ? osSa.getPassPercentage() : 0.0);
 
+        req.setAttribute("dbStatus", com.college.result.util.DBConnectionUtil.getDatabaseStatus());
+        req.setAttribute("successMessage", req.getParameter("success"));
+        req.setAttribute("errorMessage", req.getParameter("error"));
+
         req.getRequestDispatcher("/dashboard.jsp").forward(req, resp);
     }
 }

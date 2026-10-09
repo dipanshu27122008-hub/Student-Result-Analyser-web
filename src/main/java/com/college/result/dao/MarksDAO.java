@@ -215,4 +215,29 @@ public class MarksDAO {
 
         return filtered;
     }
+
+    public boolean updateMarks(StudentMarks marks) {
+        String sql = "UPDATE marks SET java_marks = ?, de_marks = ?, dsa_marks = ?, os_marks = ? WHERE student_id = ?";
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            conn = DBConnectionUtil.getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setDouble(1, marks.getJavaMarks());
+            ps.setDouble(2, marks.getDeMarks());
+            ps.setDouble(3, marks.getDsaMarks());
+            ps.setDouble(4, marks.getOsMarks());
+            ps.setInt(5, marks.getStudentId());
+            int updated = ps.executeUpdate();
+            if (updated == 0) {
+                return insertMarks(marks);
+            }
+            return true;
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error updating marks for student id: " + marks.getStudentId(), e);
+            return false;
+        } finally {
+            DBConnectionUtil.close(ps, conn);
+        }
+    }
 }

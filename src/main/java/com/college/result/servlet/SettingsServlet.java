@@ -33,6 +33,9 @@ public class SettingsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CollegeSettings settings = settingsDAO.getSettings();
         req.setAttribute("collegeSettings", settings);
+        req.setAttribute("dbStatus", com.college.result.util.DBConnectionUtil.getDatabaseStatus());
+        req.setAttribute("dbUrl", com.college.result.util.DBConnectionUtil.getDbUrl());
+        req.setAttribute("totalStudents", new com.college.result.dao.StudentDAO().getTotalCount());
         req.getRequestDispatcher("/settings.jsp").forward(req, resp);
     }
 
@@ -93,6 +96,9 @@ public class SettingsServlet extends HttpServlet {
         }
 
         req.setAttribute("collegeSettings", settings);
+        req.setAttribute("dbStatus", com.college.result.util.DBConnectionUtil.getDatabaseStatus());
+        req.setAttribute("dbUrl", com.college.result.util.DBConnectionUtil.getDbUrl());
+        req.setAttribute("totalStudents", new com.college.result.dao.StudentDAO().getTotalCount());
         req.getRequestDispatcher("/settings.jsp").forward(req, resp);
     }
 }

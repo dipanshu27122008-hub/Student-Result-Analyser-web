@@ -23,9 +23,19 @@
                     <h1 class="page-title">Import Student Marks</h1>
                     <p class="page-subtitle">Batch ingestion supporting Microsoft Excel (.xlsx) and Comma-Separated Text (.txt) formats</p>
                 </div>
-                <a href="${pageContext.request.contextPath}/import-history" class="btn btn-outline">
-                    🕒 View Import History
-                </a>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <a href="${pageContext.request.contextPath}/students" class="btn btn-primary">
+                        ➕ Add Student Manually
+                    </a>
+                    <a href="${pageContext.request.contextPath}/demo-data?redirect=${pageContext.request.contextPath}/students" 
+                       class="btn btn-outline"
+                       onclick="return confirm('Load the 35 benchmark demo students into the database?')">
+                        ⚡ Load Demo Data
+                    </a>
+                    <a href="${pageContext.request.contextPath}/import-history" class="btn btn-outline">
+                        🕒 Import History
+                    </a>
+                </div>
             </div>
 
             <!-- Global Error / Warning Messages -->
@@ -46,8 +56,9 @@
                                 Status: <strong>${importResult.status}</strong> &bull; Format: <strong>${importResult.fileType}</strong>
                             </div>
                         </div>
-                        <div>
-                            <a href="${pageContext.request.contextPath}/students" class="btn btn-sm btn-primary">View Student Roster &rarr;</a>
+                        <div style="display: flex; gap: 8px;">
+                            <a href="${pageContext.request.contextPath}/students" class="btn btn-sm btn-primary">➕ Add Another Student</a>
+                            <a href="${pageContext.request.contextPath}/students" class="btn btn-sm btn-outline">View Student Roster &rarr;</a>
                             <a href="${pageContext.request.contextPath}/dashboard" class="btn btn-sm btn-outline">Go to Dashboard</a>
                         </div>
                     </div>
@@ -85,6 +96,30 @@
                     </div>
                 </div>
             </c:if>
+
+            <!-- Quick Download & Demo Banner -->
+            <div class="table-card" style="margin-bottom: 24px; background: linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%);">
+                <div style="padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                    <div>
+                        <div style="font-size: 14px; font-weight: 700; color: var(--neutral-800);">📥 Need Sample Data or Templates?</div>
+                        <div style="font-size: 12.5px; color: var(--neutral-600); margin-top: 2px;">
+                            Download pre-formatted templates with sample student marks to test the upload pipeline.
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        <a href="${pageContext.request.contextPath}/download-sample?type=xlsx" class="btn btn-outline btn-sm">
+                            📗 Download Sample Excel (.xlsx)
+                        </a>
+                        <a href="${pageContext.request.contextPath}/download-sample?type=txt" class="btn btn-outline btn-sm">
+                            📄 Download Sample TXT (.txt)
+                        </a>
+                        <a href="${pageContext.request.contextPath}/demo-data?redirect=${pageContext.request.contextPath}/dashboard" class="btn btn-primary btn-sm"
+                           onclick="return confirm('Load 35 benchmark demo records directly into the database?');">
+                            ⚡ Instant 35-Student Demo
+                        </a>
+                    </div>
+                </div>
+            </div>
 
             <!-- File Upload Card -->
             <div class="table-card">
@@ -183,7 +218,8 @@ RollNo,Name,Java,DE,DSA,OS
 103,Priya Singh,91,85,89,94</pre>
                     <div style="margin-top: 12px; font-size: 12px; color: var(--neutral-600);">
                         &bull; Duplicate Roll Numbers are automatically rejected to preserve records.<br>
-                        &bull; Marks must be numeric values between 0 and 100.
+                        &bull; Marks must be numeric values between 0 and 100.<br>
+                        &bull; You can add or edit students manually after importing anytime!
                     </div>
                 </div>
             </div>

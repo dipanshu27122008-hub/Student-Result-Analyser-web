@@ -127,6 +127,58 @@
                 </div>
             </div>
 
+            <!-- Database & Benchmark Demo Data Management Card -->
+            <div class="table-card" style="margin-top: 24px;">
+                <div class="table-toolbar">
+                    <div class="table-title">🗄️ Database &amp; Benchmark Demo Data Management</div>
+                </div>
+                <div style="padding: 24px;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px;">
+                        <div style="padding: 16px; background-color: var(--neutral-50); border: 1px solid var(--neutral-200); border-radius: var(--radius-md);">
+                            <div style="font-size: 12px; font-weight: 600; color: var(--neutral-600); text-transform: uppercase;">Active Database Engine</div>
+                            <div style="font-size: 16px; font-weight: 700; color: var(--primary); margin-top: 4px;">${dbStatus}</div>
+                            <div style="font-size: 12px; color: var(--neutral-500); margin-top: 4px;">Data is automatically persisted safely to disk.</div>
+                        </div>
+
+                        <div style="padding: 16px; background-color: var(--neutral-50); border: 1px solid var(--neutral-200); border-radius: var(--radius-md);">
+                            <div style="font-size: 12px; font-weight: 600; color: var(--neutral-600); text-transform: uppercase;">Current Student Records</div>
+                            <div style="font-size: 16px; font-weight: 700; color: var(--neutral-900); margin-top: 4px;">${totalStudents} Students</div>
+                            <div style="font-size: 12px; color: var(--neutral-500); margin-top: 4px;">All records calculated dynamically.</div>
+                        </div>
+
+                        <div style="padding: 16px; background-color: var(--neutral-50); border: 1px solid var(--neutral-200); border-radius: var(--radius-md);">
+                            <div style="font-size: 12px; font-weight: 600; color: var(--neutral-600); text-transform: uppercase;">Connection String</div>
+                            <div style="font-size: 12px; font-family: monospace; color: var(--neutral-800); margin-top: 4px; word-break: break-all;">${dbUrl}</div>
+                        </div>
+                    </div>
+
+                    <div style="padding-top: 16px; border-top: 1px solid var(--neutral-200); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                        <div>
+                            <div style="font-size: 14px; font-weight: 700; color: var(--neutral-800);">Quick Benchmark Operations</div>
+                            <div style="font-size: 12.5px; color: var(--neutral-600);">Load standard 35 benchmark students for viva demo, or clear records.</div>
+                        </div>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <form action="${pageContext.request.contextPath}/demo-data" method="post" style="margin: 0;"
+                                  onsubmit="return confirm('Load 35 benchmark demo records into the database?');">
+                                <input type="hidden" name="redirect" value="${pageContext.request.contextPath}/settings">
+                                <button type="submit" class="btn btn-primary">
+                                    ⚡ Load 35 Benchmark Students
+                                </button>
+                            </form>
+
+                            <form action="${pageContext.request.contextPath}/demo-data" method="post" style="margin: 0;"
+                                  onsubmit="return confirm('WARNING: Are you sure you want to clear ALL student records and marks?');">
+                                <input type="hidden" name="action" value="clear">
+                                <input type="hidden" name="redirect" value="${pageContext.request.contextPath}/settings">
+                                <button type="submit" class="btn btn-outline" style="color: #e53e3e; border-color: #fca5a5;">
+                                    🗑️ Clear All Students
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </main>
     </div>
 </div>

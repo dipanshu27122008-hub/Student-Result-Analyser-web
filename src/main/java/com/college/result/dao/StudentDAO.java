@@ -178,6 +178,24 @@ public class StudentDAO {
         return 0;
     }
 
+    public boolean updateStudent(int id, String name) {
+        String sql = "UPDATE students SET name = ? WHERE id = ?";
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            conn = DBConnectionUtil.getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setInt(2, id);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error updating student id: " + id, e);
+            return false;
+        } finally {
+            DBConnectionUtil.close(ps, conn);
+        }
+    }
+
     public boolean deleteStudent(int id) {
         String sql = "DELETE FROM students WHERE id = ?";
         Connection conn = null;
@@ -192,6 +210,23 @@ public class StudentDAO {
             return false;
         } finally {
             DBConnectionUtil.close(ps, conn);
+        }
+    }
+
+    public boolean clearAllStudents() {
+        Connection conn = null;
+        Statement st = null;
+        try {
+            conn = DBConnectionUtil.getConnection();
+            st = conn.createStatement();
+            st.executeUpdate("DELETE FROM marks");
+            st.executeUpdate("DELETE FROM students");
+            return true;
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error clearing student records", e);
+            return false;
+        } finally {
+            DBConnectionUtil.close(st, conn);
         }
     }
 }

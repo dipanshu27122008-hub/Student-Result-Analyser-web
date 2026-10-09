@@ -25,19 +25,41 @@
                     <h1 class="page-title">Executive Result Dashboard</h1>
                     <p class="page-subtitle">Batch performance overview, category distributions, and diagnostic metrics</p>
                 </div>
-                <div style="display: flex; gap: 10px;">
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <a href="${pageContext.request.contextPath}/students" class="btn btn-outline">➕ Add Student</a>
+                    <a href="${pageContext.request.contextPath}/demo-data?redirect=${pageContext.request.contextPath}/dashboard" 
+                       class="btn btn-outline" 
+                       onclick="return confirm('Load the 35 benchmark demo students into the database?')">
+                        ⚡ Load Demo Data
+                    </a>
                     <a href="${pageContext.request.contextPath}/upload" class="btn btn-outline">📥 Import File</a>
-                    <a href="${pageContext.request.contextPath}/pdf-report" class="btn btn-primary" target="_blank">📄 Generate PDF Report</a>
+                    <a href="${pageContext.request.contextPath}/pdf-report" class="btn btn-primary" target="_blank">📄 Generate PDF</a>
                 </div>
             </div>
+
+            <!-- Flash Success / Error Messages -->
+            <c:if test="${not empty successMessage}">
+                <div class="alert alert-success" style="margin-bottom: 20px;">
+                    <span>✅</span>
+                    <div>${successMessage}</div>
+                </div>
+            </c:if>
+            <c:if test="${not empty errorMessage}">
+                <div class="alert alert-danger" style="margin-bottom: 20px;">
+                    <span>⚠️</span>
+                    <div>${errorMessage}</div>
+                </div>
+            </c:if>
 
             <c:if test="${resultsCount == 0}">
                 <div class="alert alert-info">
                     <span>💡</span>
                     <div>
-                        <strong>No student records found in database!</strong> Please import sample data using Excel or TXT file to populate results and view dynamic charts.
-                        <div style="margin-top: 8px;">
-                            <a href="${pageContext.request.contextPath}/upload" class="btn btn-sm btn-accent">Go to Import Page</a>
+                        <strong>No student records currently in database!</strong> Click below to load 35 realistic benchmark students or import an Excel/TXT file.
+                        <div style="margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap;">
+                            <a href="${pageContext.request.contextPath}/demo-data?redirect=${pageContext.request.contextPath}/dashboard" class="btn btn-sm btn-accent">⚡ Instant 35-Student Demo</a>
+                            <a href="${pageContext.request.contextPath}/students" class="btn btn-sm btn-primary">➕ Add Student Manually</a>
+                            <a href="${pageContext.request.contextPath}/upload" class="btn btn-sm btn-outline">📥 Go to Import Page</a>
                         </div>
                     </div>
                 </div>
@@ -230,6 +252,10 @@
                             </tr>
                         </tbody>
                     </table>
+                </div>
+                <div style="margin-top: 16px; padding: 12px 20px; background-color: var(--neutral-50); border-top: 1px solid var(--neutral-200); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; font-size: 13px; color: var(--neutral-600);">
+                    <div>Academic Year: <strong>${collegeSettings.academicYear}</strong> &bull; Department of ${collegeSettings.departmentName}</div>
+                    <div class="badge-db-status">🟢 Database: ${dbStatus}</div>
                 </div>
             </div>
 
